@@ -5,62 +5,67 @@
     __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
     __hasProp = {}.hasOwnProperty,
     __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
-
+  
   Connector = require("./connector");
-
-  URI = require("uri-js");
-
+  
+  URI 			= require("uri-js");
+  window.CANNON = require("cannon");
+  TWEEN 		= require("tween");
+  EventEmitter 	= require('wolfy87-eventemitter');
+  
+  DOWN_SAMPLE 	= 1;
+  PHYSICS_HZ 	= 60;
+  MOBILE 		= false;
+  
   Templates = {
     inQueue: 			require("./jade/in_queue.jade"),
     unableToConnect: 	require("./jade/unable_to_connect.jade"),
     instructions: 		require("./jade/instructions.jade"),
     connecting: 		require("./jade/connecting.jade")
   };
-
-  window.CANNON = require("cannon");
-
-  TWEEN 		= require("tween");
-  EventEmitter 	= require('wolfy87-eventemitter');
-
-  DOWN_SAMPLE = 1;
-  PHYSICS_HZ = 60.0;
-  MOBILE = false;
-
+  
   if (/Android|iPhone|iPad|iPod|IEMobile/i.test(navigator.userAgent)) {
     MOBILE = true;
   }
-
+  
   Client = (function(_super) {
     __extends(Client, _super);
-
+	
     function Client() {
-      this.tick = __bind(this.tick, this);
-      this.tickPhysics = __bind(this.tickPhysics, this);
-      this.onClick = __bind(this.onClick, this);
+	
+	  var ASPECT, FAR, NEAR, VIEW_ANGLE;
+	  
+      this.tick 			= __bind(this.tick, this);
+      this.tickPhysics 		= __bind(this.tickPhysics, this);
+      this.onClick 			= __bind(this.onClick, this);
       this.vrDeviceCallback = __bind(this.vrDeviceCallback, this);
       this.pointerlockchange = __bind(this.pointerlockchange, this);
       this.pointerlockerror = __bind(this.pointerlockerror, this);
-      this.onWindowResize = __bind(this.onWindowResize, this);
-      var ASPECT, FAR, NEAR, VIEW_ANGLE;
-      this.container = $("#scene-view").css({
-        position: 'relative'
-      });
-      this.width = this.container.width();
+      this.onWindowResize 	= __bind(this.onWindowResize, this);
+      
+	  
+      this.container = $("#scene-view").css({ position: 'relative' });
+	  
+      this.width  = this.container.width();
       this.height = this.container.height();
-      this.stats = new Stats();
+      this.stats  = new Stats();
+	  
       this.stats.setMode(0);
       this.stats.domElement.style.position = 'absolute';
       this.stats.domElement.style.top = '10px';
       this.stats.domElement.style.zIndex = 110;
       this.stats.domElement.style.left = '10px';
       this.container.append(this.stats.domElement);
-      VIEW_ANGLE = 60;
+	  
+	  VIEW_ANGLE = 60;
       ASPECT = this.width / this.height;
       NEAR = 0.1;
       FAR = 500;
+	  
+      
       this.scene = new THREE.Scene();
       this.world = new CANNON.World();
-      this.world.gravity.set(0, -15, 0);
+      this.world.gravity.set(0, -7, 0);
       this.world.broadphase = new CANNON.NaiveBroadphase();
       this.renderer = new THREE.WebGLRenderer({
         antialias: false
@@ -130,7 +135,7 @@
         };
       })(this));
     }
-
+	
     Client.prototype.onWindowResize = function() {
       this.width = this.container.width();
       this.height = this.container.height();
@@ -143,15 +148,15 @@
       this.renderer.setSize(this.width / DOWN_SAMPLE, this.height / DOWN_SAMPLE);
       return this.centerOverlay();
     };
-
+	
     Client.prototype.hasPointerLock = function() {
       return document.pointerLockElement || document.mozPointerLockElement || document.webkitPointerLockElement;
     };
-
+	
     Client.prototype.pointerlockerror = function(event) {
       return alert("[FAIL] There was an error acquiring pointerLock. You will not be able to use sceneserver.");
     };
-
+	
     Client.prototype.pointerlockchange = function(event) {
       if (this.hasPointerLock()) {
         return this.enableControls();
@@ -159,17 +164,17 @@
         return this.disableControls();
       }
     };
-
+	
     Client.prototype.enableControls = function() {
       this.controls.enabled = true;
       return this.hideInstructions();
     };
-
+	
     Client.prototype.disableControls = function() {
       this.controls.enabled = false;
       return this.showInstructions();
     };
-
+	
     Client.prototype.getUriFromLocation = function() {
       if (window.location.search.match(/connect.+/)) {
         return "//" + window.location.search.split(/[=]/)[1];
@@ -177,7 +182,7 @@
         return "//scenevr-demo.herokuapp.com/index.xml";
       }
     };
-
+	
     Client.prototype.removeReflectedObjects = function() {
       var list, obj, _i, _len, _results;
       list = (function() {
@@ -204,7 +209,7 @@
       }
       return _results;
     };
-
+	
     Client.prototype.getAllClickableObjects = function() {
       var list;
       list = [];
@@ -213,7 +218,7 @@
       });
       return list;
     };
-
+	
     Client.prototype.initVR = function() {
       if (navigator.getVRDevices) {
         return navigator.getVRDevices().then(this.vrDeviceCallback);
@@ -221,7 +226,7 @@
         return navigator.mozGetVRDevices(this.vrDeviceCallback);
       }
     };
-
+	
     Client.prototype.vrDeviceCallback = function(vrdevs) {
       var device, _i, _j, _len, _len1;
       for (_i = 0, _len = vrdevs.length; _i < _len; _i++) {
@@ -242,7 +247,7 @@
         return this.vrrenderer = new THREE.VRRenderer(this.renderer, this.vrHMD);
       }
     };
-
+	
     Client.prototype.checkForPortalCollision = function() {
       var direction, ints, position;
       position = this.controls.getObject().position;
@@ -254,7 +259,7 @@
         return this.promotePortal();
       }
     };
-
+	
     Client.prototype.promotePortal = function() {
       var controlObject;
       this.portal = this.connector.portal;
@@ -276,7 +281,7 @@
       this.addPlayerBody();
       return this.connector.setPosition(this.connector.spawnPosition);
     };
-
+	
     Client.prototype.onClick = function() {
       var direction, intersection, obj, position, _i, _len, _ref;
       position = this.controls.getObject().position;
@@ -302,7 +307,7 @@
         }
       }
     };
-
+	
     Client.prototype.addMessageInput = function() {
       var input;
       this.chatForm = $("<div id='message-input'> <input type='text' placeholder='Press enter to start chatting...' /> </div>").appendTo("body");
@@ -334,7 +339,7 @@
       })(this));
       return this.chatMessages = $("<div id='messages' />").hide().appendTo('body');
     };
-
+	
     Client.prototype.addChatMessage = function(player, message) {
       this.chatMessages.show();
       if (player === null || player.name === 'scene') {
@@ -344,28 +349,28 @@
       }
       return this.chatMessages.scrollTop(this.chatMessages[0].scrollHeight);
     };
-
+	
     Client.prototype.hideOverlays = function() {
       return $(".overlay").hide();
     };
-
+	
     Client.prototype.showOverlays = function() {
       return $(".overlay").show();
     };
-
+	
     Client.prototype.addConnectionError = function() {
       $(".overlay").remove();
       return this.renderOverlay(Templates.unableToConnect({
         host: URI.parse(this.connector.uri).host
       }));
     };
-
+	
     Client.prototype.renderOverlay = function(html) {
       $(".overlay").remove();
       this.overlay = $("<div class='overlay'>").html(html).appendTo(this.container);
       return this.centerOverlay();
     };
-
+	
     Client.prototype.centerOverlay = function() {
       if (this.overlay) {
         return this.overlay.css({
@@ -374,13 +379,13 @@
         });
       }
     };
-
+	
     Client.prototype.addConnecting = function() {
       return this.renderOverlay(Templates.connecting({
         host: URI.parse(this.connector.uri).host
       }));
     };
-
+	
     Client.prototype.addInstructions = function() {
       var element;
       $(".overlay").remove();
@@ -390,7 +395,7 @@
         alert("[FAIL] Your browser doesn't seem to support pointerlock. Please use ie, chrome or firefox.");
       }
     };
-
+	
     Client.prototype.addPointLockGrab = function() {
       return $('body').click((function(_this) {
         return function() {
@@ -410,19 +415,19 @@
         };
       })(this));
     };
-
+	
     Client.prototype.showMessage = function(message) {
       return this.renderOverlay(message);
     };
-
+	
     Client.prototype.showInstructions = function() {
       return this.addInstructions();
     };
-
+	
     Client.prototype.hideInstructions = function() {
       return $(".overlay").remove();
     };
-
+	
     Client.prototype.addLoadingScene = function() {
       var geometry, material;
       geometry = new THREE.IcosahedronGeometry(500, 3);
@@ -434,7 +439,7 @@
       this.loadingDome = new THREE.Mesh(geometry, material);
       return this.scene.add(this.loadingDome);
     };
-
+	
     Client.prototype.addPlayerBody = function() {
       var lastContact, sphereShape;
       this.playerBody = new CANNON.Body({
@@ -472,21 +477,25 @@
         };
       })(this));
     };
-
+	
+	// Client.prototype.addSlider = function() {
+    //  return $("<div />").addClass('billboardSlider').appendTo('billboard');
+    // };
+	
     Client.prototype.addDot = function() {
       return $("<div />").addClass('aiming-point').appendTo('body');
     };
-
+	
     Client.prototype.addControls = function() {
       this.controls = new PointerLockControls(this.camera, this, MOBILE);
       this.controls.enabled = false;
       return this.scene.add(this.controls.getObject());
     };
-
+	
     Client.prototype.getPlayerObject = function() {
       return this.controls.getObject();
     };
-
+	
     Client.prototype.getPlayerDropPoint = function() {
       var v;
       v = new THREE.Vector3(0, 0, -20);
@@ -556,11 +565,11 @@
       this.renderer.render(this.scene, this.camera);
       return this.camera.projectionMatrix.copy(originalCameraProjectionMatrix);
     };
-
+	
     return Client;
-
+	
   })(EventEmitter);
-
+  
   module.exports = Client;
-
+  
 }).call(this);
