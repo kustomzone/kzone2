@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>DataURI Styling</title>
+	
+	<meta charset="utf-8">
+	
+	<style type="text/css">
+		.gist, pre { font-size: 12px ; }
+	</style>
+	
+	<script>
+        function addStyle(css){
+            var datuURIs = document.createElement("link");
+            document.head = document.head || document.getElementsByTagName('head')[0];
+            datuURIs.href = "data:text/css,"+css;
+            datuURIs.rel = "stylesheet";
+            document.head.appendChild(datuURIs);
+        }
+    </script>
+	
+	<!-- load jQuery & gist -->
+	<script type="text/javascript" src="js/jquery.js"></script>
+	
+</head>
+
+<body onload="addStyle('h1{color:orange;}');addStyle('p{color:white;}')">
+	<h1>
+		Load GitHub Gists After Page Complete
+	</h1>
+	<p id="loader"> Loading... </p>
+	<div id="placeholder">  </div>
+	
+	<script type="text/javascript" src="native.js"></script>
+	<script type="text/javascript" src="gist.js"></script>
+	
+</body>
+</html>

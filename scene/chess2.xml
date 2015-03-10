@@ -1,0 +1,351 @@
+<scene>
+  
+  <!--
+    This blend has been released under
+    Creative Commons Attribution 3.0
+
+    This means that you can use it for any purpose you see fit, even commercially,
+    as long as you respect these requirements:
+
+      - You MUST give credit to cemkalyoncu.
+  -->
+  
+  <spawn position="0 0 20" />
+
+  <skybox style="color: linear-gradient(#F3F3F0, #acf)" />
+  
+  <fog style="color: #CCA" near="50" far="100" />
+
+  <billboard position="-5 1 15" rotation="0 0 0" scale="2 2 0.2"><![CDATA[
+      <h1 style="text-align: center; margin: 20px 0; font-weight: normal; color: #f70;">
+        Click the portal below and come explore the rest of <b>SceneVR</b>!
+      </h1>
+  ]]></billboard>
+  <link href="//home.scenevr.hosting/home.xml" position="-5 1 15.5" />
+
+  <!-- Instructions -->
+  <billboard position="-2 1 15" rotation="0 0 0" scale="2 2 0.2"><![CDATA[
+      Two player VR chess by @bnolan.
+      <br /><br />
+      Chess pieces CC-by-attribution created by @cemkalyoncu.
+      <br /><br />
+      Powered by the wonderful chess.js.
+      <br /><br />
+      Click on a piece to select it, then click on the board to move the piece
+      there.
+  ]]></billboard>
+
+  <!-- Reset button -->
+  <billboard id="game-status" position="2 1 15" rotation="0 0 0" scale="2 2 0.2"><![CDATA[
+      <h1 style="margin: 60px 0; text-align: center;">Reset button</h1>
+      <center>
+        Visible after no one has moved for two minutes.
+      </billboard>
+  ]]></billboard>
+  
+  <box id="reset-button" style="color: #F00;" position="2 0.7 15.2" scale="0.4 0.4 0.2" />
+
+  <!-- Changelog -->
+  <billboard style="color: #CCA;" position="6 1 15" rotation="0 0 0" scale="1 1 0.2"><![CDATA[
+      <b>Changelog</b><br /><br />
+      7.03.15 Fixed en-passant capture.<br />
+      5.03.15 Fixed promotion, added message checkmate, stalemate, draw.<br /><br />
+      <b>Issues</b><br />
+      Castling doesn't work.<br />
+      Promotion: the piece changes to the correct type, but the model doesnt change. scenevr-web bug.
+  ]]></billboard>
+
+  <!-- Who's move is it? -->
+  <model id="black-text" src="/models/black.obj" style="color: #332" position="0 0 -10" scale="0.75 0.75 0.75" />
+  <model id="white-text" src="/models/white.obj" style="color: #EEC" position="0 0 -10" scale="0.75 0.75 0.75" />
+
+  <!-- Pieces are added to the board using the script below -->
+  <box id="board" position="0 0.005 0" rotation="0 0 0" scale="16 0.1 16" style="texture-map: url(/images/chessboard.jpg)" />
+
+  <!-- Observation platform -->
+  <box position="-10 6 0" scale="10 1 1" style="color: #CC9" rotation="0 1.57 0" />
+  <box position="-10 2.5 8.25" scale="10 1 1" style="color: #CC9" rotation="0.78 1.57 0" />
+  
+  <box position="10 6 0" scale="10 1 1" style="color: #331" rotation="0 1.57 0" />
+  <box position="10 2.5 8.25" scale="10 1 1" style="color: #331" rotation="0.78 1.57 0" />
+
+  <!-- We use chess.js -->
+  <script src="scripts/chess.js"></script>
+  <script>
+    <![CDATA[
+
+      // Some globals
+      var selected = null,
+        lastMoveAt = 0,
+        fromReference,
+        TIMEOUT = 2 * 60;
+
+      // Select a piece
+      function select(piece){
+        if(selected){
+          deselect();
+        }
+
+        piece.style.color = 'red';
+        fromReference = worldspaceToAlgebraic(piece.position);
+        selected = piece;
+      }
+
+      // Deselect the selected piece
+      function deselect(){
+        selected.style.color = selected.className.match(/black/) ? '#222' : '#eee';
+        selected = null;
+        fromReference = null;
+      }
+
+      // Add a piece described by placement at position
+      function addPiece(placement, position){
+        var mapping = {
+          p : 'pawn',
+          r : 'rook',
+          n : 'knight',
+          b : 'bishop',
+          q : 'queen',
+          k : 'king'
+        };
+
+        var piece = document.createElement("model");
+        piece.src = "/models/" + mapping[placement.type] + ".obj";
+        piece.className = "piece " + mapping[placement.type] + " " + (placement.color == 'b' ? 'black' : 'white');
+        piece.style = "collision: none; color: " + (placement.color == 'b' ? '#333' : '#fff') + ";"
+        piece.position = algebraicToWorldspace(position);
+        piece.setAttribute("data-position", position);
+        piece.scale = new Vector(0.5,0.5,0.5);
+        document.scene.appendChild(piece);
+      }
+
+      // Reset the game and add pieces
+      function reset(){
+        chess.reset();
+
+        document.querySelectorAll("model.piece").forEach(function(piece){
+          document.scene.removeChild(piece);
+        });
+
+        var rank, file;
+
+        for(rank=1;rank<9;rank++){
+          for(file='a'.charCodeAt(0);file<'i'.charCodeAt(0);file++){
+            var position = String.fromCharCode(file) + rank,
+              placement;
+
+            if(placement = chess.get(position)){
+              addPiece(placement, position);
+            }
+          }
+        }
+
+        addPieceListeners();
+        endOfTurn();
+      }
+
+      // Show the relevant black/white text
+      function showTurn(){
+        document.getElementById("white-text").style.visibility = chess.turn() == 'w' ? "visible" : "hidden";
+        document.getElementById("black-text").style.visibility = chess.turn() == 'b' ? "visible" : "hidden";
+      }
+
+      // Do end of turn tidy ups
+      function endOfTurn(){
+        if(selected){
+          deselect();
+        }
+
+        showTurn();
+        updateLastMoveAt();
+      }
+
+      // Update the lastMoveAt (to keep track of idle games)
+      function updateLastMoveAt(){
+        lastMoveAt = new Date();
+      }
+
+      // Display the reset button if the game is idle
+      setInterval(function(){
+        var idle = new Date - lastMoveAt > TIMEOUT * 1000;
+        document.getElementById("reset-button").style.visibility = idle ? "visible" : "hidden";
+      }, 1000);
+
+      // Convert 1,0,1 -> e5
+      function worldspaceToAlgebraic(point){
+        var x = Math.floor(point.x / 2),
+          z = Math.floor(point.z / 2),
+          rank = x + 5,
+          file = String.fromCharCode(97 + z + 4);
+
+        return(file + rank);
+      }
+
+      // Convert e5 -> 1,0,1
+      function algebraicToWorldspace(alg){
+        var x = parseInt(alg[1]) - 1,
+          z = alg[0].charCodeAt(0) - 97;
+
+        return new Vector(x * 2 - 8 + 1, 0, z * 2 - 8 + 1);
+      }
+
+      var cmAnimation = 0;
+      function checkmate(){
+        cmAnimation = 5 * 10;
+
+        function toTheMoon(){
+          document.querySelectorAll("model.piece").forEach(function(piece){
+            piece.rotation.x += 0.1;
+            piece.rotation.z += 0.2;
+            piece.position.y += 0.5;
+          });
+
+          if(cmAnimation-- > 0){
+            setTimeout(toTheMoon, 1000/5);
+          }else{
+            reset();
+          }
+        }
+
+        toTheMoon();
+      }
+
+      function getPieceByAlgebraic(alg){
+        var piece = null;
+
+        document.querySelectorAll("model.piece").forEach(function(p){
+          if(p.getAttribute("data-position") == alg){
+            piece = p;
+          }
+        });
+
+        if(!piece){
+          throw "Could not find piece at " + alg;
+        }
+
+        return piece;
+      }
+
+      function previousRank(alg){
+        return alg.split('')[0] + (parseInt(alg.split('')[1]) - 1);
+      }
+
+      function previousFile(alg){
+        return String.fromCharCode(alg.charCodeAt(0) - 1) + alg.split('')[1];
+      }
+
+      function subsequentFile(alg){
+        return String.fromCharCode(alg.charCodeAt(0) + 1) + alg.split('')[1];
+      }
+
+      function queensideRook(rank){
+        return 'a' + rank;
+      }
+
+      function kingsideRook(rank){
+        return 'h' + rank;
+      }
+
+      // Helper
+      function tryMove(a, b, piece){
+        var m = chess.move({ from : a, to : b, promotion: 'q'}),
+          rank = b.split('')[1];
+
+        if(m){
+          piece.setAttribute("data-position", b);
+        }
+
+        if(m && m.flags.match(/p/)){
+          console.log("Piece promoted to queen");
+          piece.src = "/models/queen.obj";
+          piece.className = "piece queen " + (m.color == 'b' ? 'black' : 'white');
+        }else if(m && m.flags.match(/c/)){
+          console.log("Captured moving from " + a + " to " + b);
+        }else if(m && m.flags.match(/e/)){
+          console.log("En-passant capture moving from " + a + " to " + b);
+          document.scene.removeChild(getPieceByAlgebraic(previousRank(b)));
+        }else if(m && m.flags.match(/q/)){
+          console.log("Queen side castling");
+          getPieceByAlgebraic(queensideRook(rank)).position = algebraicToWorldspace(previousFile(a));
+        }else if(m && m.flags.match(/k/)){
+          console.log("King side castling");
+          getPieceByAlgebraic(kingsideRook(rank)).position = algebraicToWorldspace(subsequentFile(a));
+        }else if(m){
+          console.log("Moved from " + a + " to " + b);
+        }
+
+        if(chess.in_checkmate()){
+          console.log("Checkmate");
+          console.log(turnName() + " wins!");
+          checkmate();
+        }else if(chess.in_draw()){
+          console.log("Draw");
+        }else if (chess.in_stalemate()){
+          console.log("Stalemate");
+        }else if(chess.in_check()){
+          console.log("Check");
+        }
+
+        return m;
+      }
+
+      // Return name of color of whose turn it is
+      function turnName(){
+        return chess.turn() == 'b' ? 'black' : 'white';
+      }
+
+      // Add click listeners to all pieces
+      function addPieceListeners(){
+        document.querySelectorAll("model.piece").forEach(function(model){
+          model.addEventListener("click", function(e){
+            var reference = worldspaceToAlgebraic(model.position);
+
+            if((selected) && (selected == model)){
+              deselect();
+            }else if(selected && model.className.match(turnName())){
+              deselect();
+              select(model);
+            }else if(selected){
+              if(tryMove(fromReference, reference, selected)){
+                // Piece was taken!
+                document.scene.removeChild(model);
+                selected.position = algebraicToWorldspace(reference);
+
+                endOfTurn();
+              }else{
+                console.log("Invalid move");
+              }
+            }else{
+              select(model);
+            }
+          });
+        });
+      }
+
+      // Reset button
+      document.getElementById("reset-button").addEventListener("click", function(e){
+        console.log("Game reset by anonymous pressing the reset button.");
+        reset();
+      });
+
+      // Listen for clicks on the board
+      document.getElementById("board").addEventListener("click", function(e){
+        var reference = worldspaceToAlgebraic(e.point);
+
+        if(selected){
+          if(tryMove(fromReference, reference, selected)){
+            selected.position = algebraicToWorldspace(reference);
+
+            endOfTurn();
+          }else{
+            console.log("Invalid move");
+          }
+        }
+      });
+
+      // Create a new game
+      var chess = new Chess();
+      reset();
+    ]]>
+  </script>
+</scene>
