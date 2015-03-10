@@ -33,7 +33,8 @@ json  = JSON.parse(open("http://www.colourlovers.com/api/palettes/top?format=jso
 
 xml = "<scene>\n"
 xml += <<-EOF
-  <spawn position="0 0 0" />
+
+  <spawn position="0 0 24" />
 
 EOF
 
@@ -65,7 +66,7 @@ json.each do |palette|
   z = (i / 5).floor
   y = 1
   
-  v  = GMath3D::Vector3.new(x, 0.03, -z) * 7
+  v  = GMath3D::Vector3.new(x-3, 0.03, -z+3) * 7
   v += GMath3D::Vector3.new(10, y, -10)
   
   height  = `identify #{FOLDER}#{FILE}-#{i}#{extension}`.match(/x(\d+)/)[1].to_i + 650

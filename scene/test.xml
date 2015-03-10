@@ -1,7 +1,8 @@
 <scene>
-  <spawn position="0 0 0" />
 
-    <billboard position="10 1.21 -10" rotation="0 0 0" scale="2 2 0.07">
+  <spawn position="0 0 24" />
+
+    <billboard position="-11 1.21 11" rotation="0 0 0" scale="2 2 0.07">
       <![CDATA[
         <center style='margin-top: 8px; font-size: 5em;'>
 			<div style='color: #000000; background: url(http://localhost:9000/img/palette/bars-0.png); background-size: 1365px; background-repeat: no-repeat; align: center; opacity: 0.4; display: block; margin-left: auto; margin-right: auto;'>
@@ -232,7 +233,7 @@
       ]]>
     </billboard>
 	
-<box style='color:#DB3E3E;' scale='0.4 0.4 0.4' position='11.2 0.2 -10' /><box style='color:#030000;' scale='0.4 0.4 0.4' position='11.2 0.6 -10' /><box style='color:#E97070;' scale='0.4 0.4 0.4' position='11.2 1.0 -10' /><box style='color:#FEBCA3;' scale='0.4 0.4 0.4' position='11.2 1.4 -10' /><box style='color:#6E0E0E;' scale='0.4 0.4 0.4' position='11.2 1.8 -10' />    <billboard position="17 1.21 -10" rotation="0 0 0" scale="2 2 0.07">
+<box style='color:#DB3E3E;' scale='0.4 0.4 0.4' position='-9.8 0.2 11' /><box style='color:#030000;' scale='0.4 0.4 0.4' position='-9.8 0.6 11' /><box style='color:#E97070;' scale='0.4 0.4 0.4' position='-9.8 1.0 11' /><box style='color:#FEBCA3;' scale='0.4 0.4 0.4' position='-9.8 1.4 11' /><box style='color:#6E0E0E;' scale='0.4 0.4 0.4' position='-9.8 1.8 11' />    <billboard position="-4 1.21 11" rotation="0 0 0" scale="2 2 0.07">
       <![CDATA[
         <center style='margin-top: 8px; font-size: 5em;'>
 			<div style='color: #000000; background: url(http://localhost:9000/img/palette/bars-1.png); background-size: 1365px; background-repeat: no-repeat; align: center; opacity: 0.4; display: block; margin-left: auto; margin-right: auto;'>
@@ -463,7 +464,7 @@
       ]]>
     </billboard>
 	
-<box style='color:#D7E8D5;' scale='0.4 0.4 0.4' position='18.2 0.2 -10' /><box style='color:#E6F0AF;' scale='0.4 0.4 0.4' position='18.2 0.6 -10' /><box style='color:#E8ED76;' scale='0.4 0.4 0.4' position='18.2 1.0 -10' /><box style='color:#FFCD57;' scale='0.4 0.4 0.4' position='18.2 1.4 -10' /><box style='color:#4A3A47;' scale='0.4 0.4 0.4' position='18.2 1.8 -10' />    <billboard position="24 1.21 -10" rotation="0 0 0" scale="2 2 0.07">
+<box style='color:#D7E8D5;' scale='0.4 0.4 0.4' position='-2.8 0.2 11' /><box style='color:#E6F0AF;' scale='0.4 0.4 0.4' position='-2.8 0.6 11' /><box style='color:#E8ED76;' scale='0.4 0.4 0.4' position='-2.8 1.0 11' /><box style='color:#FFCD57;' scale='0.4 0.4 0.4' position='-2.8 1.4 11' /><box style='color:#4A3A47;' scale='0.4 0.4 0.4' position='-2.8 1.8 11' />    <billboard position="3 1.21 11" rotation="0 0 0" scale="2 2 0.07">
       <![CDATA[
         <center style='margin-top: 8px; font-size: 5em;'>
 			<div style='color: #000000; background: url(http://localhost:9000/img/palette/bars-2.png); background-size: 1365px; background-repeat: no-repeat; align: center; opacity: 0.4; display: block; margin-left: auto; margin-right: auto;'>
@@ -694,7 +695,7 @@
       ]]>
     </billboard>
 	
-<box style='color:#69D2E7;' scale='0.4 0.4 0.4' position='25.2 0.2 -10' /><box style='color:#A7DBD8;' scale='0.4 0.4 0.4' position='25.2 0.6 -10' /><box style='color:#E0E4CC;' scale='0.4 0.4 0.4' position='25.2 1.0 -10' /><box style='color:#F38630;' scale='0.4 0.4 0.4' position='25.2 1.4 -10' /><box style='color:#FA6900;' scale='0.4 0.4 0.4' position='25.2 1.8 -10' />    <billboard position="31 1.21 -10" rotation="0 0 0" scale="2 2 0.07">
+<box style='color:#69D2E7;' scale='0.4 0.4 0.4' position='4.2 0.2 11' /><box style='color:#A7DBD8;' scale='0.4 0.4 0.4' position='4.2 0.6 11' /><box style='color:#E0E4CC;' scale='0.4 0.4 0.4' position='4.2 1.0 11' /><box style='color:#F38630;' scale='0.4 0.4 0.4' position='4.2 1.4 11' /><box style='color:#FA6900;' scale='0.4 0.4 0.4' position='4.2 1.8 11' />    <billboard position="10 1.21 11" rotation="0 0 0" scale="2 2 0.07">
       <![CDATA[
         <center style='margin-top: 8px; font-size: 5em;'>
 			<div style='color: #000000; background: url(http://localhost:9000/img/palette/bars-3.png); background-size: 1365px; background-repeat: no-repeat; align: center; opacity: 0.4; display: block; margin-left: auto; margin-right: auto;'>
@@ -925,7 +926,7 @@
       ]]>
     </billboard>
 	
-<box style='color:#FE4365;' scale='0.4 0.4 0.4' position='32.2 0.2 -10' /><box style='color:#FC9D9A;' scale='0.4 0.4 0.4' position='32.2 0.6 -10' /><box style='color:#F9CDAD;' scale='0.4 0.4 0.4' position='32.2 1.0 -10' /><box style='color:#C8C8A9;' scale='0.4 0.4 0.4' position='32.2 1.4 -10' /><box style='color:#83AF9B;' scale='0.4 0.4 0.4' position='32.2 1.8 -10' />    <billboard position="38 1.21 -10" rotation="0 0 0" scale="2 2 0.07">
+<box style='color:#FE4365;' scale='0.4 0.4 0.4' position='11.2 0.2 11' /><box style='color:#FC9D9A;' scale='0.4 0.4 0.4' position='11.2 0.6 11' /><box style='color:#F9CDAD;' scale='0.4 0.4 0.4' position='11.2 1.0 11' /><box style='color:#C8C8A9;' scale='0.4 0.4 0.4' position='11.2 1.4 11' /><box style='color:#83AF9B;' scale='0.4 0.4 0.4' position='11.2 1.8 11' />    <billboard position="17 1.21 11" rotation="0 0 0" scale="2 2 0.07">
       <![CDATA[
         <center style='margin-top: 8px; font-size: 5em;'>
 			<div style='color: #000000; background: url(http://localhost:9000/img/palette/bars-4.png); background-size: 1365px; background-repeat: no-repeat; align: center; opacity: 0.4; display: block; margin-left: auto; margin-right: auto;'>
@@ -1156,7 +1157,7 @@
       ]]>
     </billboard>
 	
-<box style='color:#ECD078;' scale='0.4 0.4 0.4' position='39.2 0.2 -10' /><box style='color:#D95B43;' scale='0.4 0.4 0.4' position='39.2 0.6 -10' /><box style='color:#C02942;' scale='0.4 0.4 0.4' position='39.2 1.0 -10' /><box style='color:#542437;' scale='0.4 0.4 0.4' position='39.2 1.4 -10' /><box style='color:#53777A;' scale='0.4 0.4 0.4' position='39.2 1.8 -10' />    <billboard position="10 1.21 -17" rotation="0 0 0" scale="2 2 0.07">
+<box style='color:#ECD078;' scale='0.4 0.4 0.4' position='18.2 0.2 11' /><box style='color:#D95B43;' scale='0.4 0.4 0.4' position='18.2 0.6 11' /><box style='color:#C02942;' scale='0.4 0.4 0.4' position='18.2 1.0 11' /><box style='color:#542437;' scale='0.4 0.4 0.4' position='18.2 1.4 11' /><box style='color:#53777A;' scale='0.4 0.4 0.4' position='18.2 1.8 11' />    <billboard position="-11 1.21 4" rotation="0 0 0" scale="2 2 0.07">
       <![CDATA[
         <center style='margin-top: 8px; font-size: 5em;'>
 			<div style='color: #000000; background: url(http://localhost:9000/img/palette/bars-5.png); background-size: 1365px; background-repeat: no-repeat; align: center; opacity: 0.4; display: block; margin-left: auto; margin-right: auto;'>
@@ -1387,7 +1388,7 @@
       ]]>
     </billboard>
 	
-<box style='color:#556270;' scale='0.4 0.4 0.4' position='11.2 0.2 -17' /><box style='color:#4ECDC4;' scale='0.4 0.4 0.4' position='11.2 0.6 -17' /><box style='color:#C7F464;' scale='0.4 0.4 0.4' position='11.2 1.0 -17' /><box style='color:#FF6B6B;' scale='0.4 0.4 0.4' position='11.2 1.4 -17' /><box style='color:#C44D58;' scale='0.4 0.4 0.4' position='11.2 1.8 -17' />    <billboard position="17 1.21 -17" rotation="0 0 0" scale="2 2 0.07">
+<box style='color:#556270;' scale='0.4 0.4 0.4' position='-9.8 0.2 4' /><box style='color:#4ECDC4;' scale='0.4 0.4 0.4' position='-9.8 0.6 4' /><box style='color:#C7F464;' scale='0.4 0.4 0.4' position='-9.8 1.0 4' /><box style='color:#FF6B6B;' scale='0.4 0.4 0.4' position='-9.8 1.4 4' /><box style='color:#C44D58;' scale='0.4 0.4 0.4' position='-9.8 1.8 4' />    <billboard position="-4 1.21 4" rotation="0 0 0" scale="2 2 0.07">
       <![CDATA[
         <center style='margin-top: 8px; font-size: 5em;'>
 			<div style='color: #000000; background: url(http://localhost:9000/img/palette/bars-6.png); background-size: 1365px; background-repeat: no-repeat; align: center; opacity: 0.4; display: block; margin-left: auto; margin-right: auto;'>
@@ -1618,7 +1619,7 @@
       ]]>
     </billboard>
 	
-<box style='color:#774F38;' scale='0.4 0.4 0.4' position='18.2 0.2 -17' /><box style='color:#E08E79;' scale='0.4 0.4 0.4' position='18.2 0.6 -17' /><box style='color:#F1D4AF;' scale='0.4 0.4 0.4' position='18.2 1.0 -17' /><box style='color:#ECE5CE;' scale='0.4 0.4 0.4' position='18.2 1.4 -17' /><box style='color:#C5E0DC;' scale='0.4 0.4 0.4' position='18.2 1.8 -17' />    <billboard position="24 1.21 -17" rotation="0 0 0" scale="2 2 0.07">
+<box style='color:#774F38;' scale='0.4 0.4 0.4' position='-2.8 0.2 4' /><box style='color:#E08E79;' scale='0.4 0.4 0.4' position='-2.8 0.6 4' /><box style='color:#F1D4AF;' scale='0.4 0.4 0.4' position='-2.8 1.0 4' /><box style='color:#ECE5CE;' scale='0.4 0.4 0.4' position='-2.8 1.4 4' /><box style='color:#C5E0DC;' scale='0.4 0.4 0.4' position='-2.8 1.8 4' />    <billboard position="3 1.21 4" rotation="0 0 0" scale="2 2 0.07">
       <![CDATA[
         <center style='margin-top: 8px; font-size: 5em;'>
 			<div style='color: #000000; background: url(http://localhost:9000/img/palette/bars-7.png); background-size: 1365px; background-repeat: no-repeat; align: center; opacity: 0.4; display: block; margin-left: auto; margin-right: auto;'>
@@ -1849,7 +1850,7 @@
       ]]>
     </billboard>
 	
-<box style='color:#E8DDCB;' scale='0.4 0.4 0.4' position='25.2 0.2 -17' /><box style='color:#CDB380;' scale='0.4 0.4 0.4' position='25.2 0.6 -17' /><box style='color:#036564;' scale='0.4 0.4 0.4' position='25.2 1.0 -17' /><box style='color:#033649;' scale='0.4 0.4 0.4' position='25.2 1.4 -17' /><box style='color:#031634;' scale='0.4 0.4 0.4' position='25.2 1.8 -17' />    <billboard position="31 1.21 -17" rotation="0 0 0" scale="2 2 0.07">
+<box style='color:#E8DDCB;' scale='0.4 0.4 0.4' position='4.2 0.2 4' /><box style='color:#CDB380;' scale='0.4 0.4 0.4' position='4.2 0.6 4' /><box style='color:#036564;' scale='0.4 0.4 0.4' position='4.2 1.0 4' /><box style='color:#033649;' scale='0.4 0.4 0.4' position='4.2 1.4 4' /><box style='color:#031634;' scale='0.4 0.4 0.4' position='4.2 1.8 4' />    <billboard position="10 1.21 4" rotation="0 0 0" scale="2 2 0.07">
       <![CDATA[
         <center style='margin-top: 8px; font-size: 5em;'>
 			<div style='color: #000000; background: url(http://localhost:9000/img/palette/bars-8.png); background-size: 1365px; background-repeat: no-repeat; align: center; opacity: 0.4; display: block; margin-left: auto; margin-right: auto;'>
@@ -2080,7 +2081,7 @@
       ]]>
     </billboard>
 	
-<box style='color:#490A3D;' scale='0.4 0.4 0.4' position='32.2 0.2 -17' /><box style='color:#BD1550;' scale='0.4 0.4 0.4' position='32.2 0.6 -17' /><box style='color:#E97F02;' scale='0.4 0.4 0.4' position='32.2 1.0 -17' /><box style='color:#F8CA00;' scale='0.4 0.4 0.4' position='32.2 1.4 -17' /><box style='color:#8A9B0F;' scale='0.4 0.4 0.4' position='32.2 1.8 -17' />    <billboard position="38 1.21 -17" rotation="0 0 0" scale="2 2 0.07">
+<box style='color:#490A3D;' scale='0.4 0.4 0.4' position='11.2 0.2 4' /><box style='color:#BD1550;' scale='0.4 0.4 0.4' position='11.2 0.6 4' /><box style='color:#E97F02;' scale='0.4 0.4 0.4' position='11.2 1.0 4' /><box style='color:#F8CA00;' scale='0.4 0.4 0.4' position='11.2 1.4 4' /><box style='color:#8A9B0F;' scale='0.4 0.4 0.4' position='11.2 1.8 4' />    <billboard position="17 1.21 4" rotation="0 0 0" scale="2 2 0.07">
       <![CDATA[
         <center style='margin-top: 8px; font-size: 5em;'>
 			<div style='color: #000000; background: url(http://localhost:9000/img/palette/bars-9.png); background-size: 1365px; background-repeat: no-repeat; align: center; opacity: 0.4; display: block; margin-left: auto; margin-right: auto;'>
@@ -2311,7 +2312,7 @@
       ]]>
     </billboard>
 	
-<box style='color:#594F4F;' scale='0.4 0.4 0.4' position='39.2 0.2 -17' /><box style='color:#547980;' scale='0.4 0.4 0.4' position='39.2 0.6 -17' /><box style='color:#45ADA8;' scale='0.4 0.4 0.4' position='39.2 1.0 -17' /><box style='color:#9DE0AD;' scale='0.4 0.4 0.4' position='39.2 1.4 -17' /><box style='color:#E5FCC2;' scale='0.4 0.4 0.4' position='39.2 1.8 -17' />    <billboard position="10 1.21 -24" rotation="0 0 0" scale="2 2 0.07">
+<box style='color:#594F4F;' scale='0.4 0.4 0.4' position='18.2 0.2 4' /><box style='color:#547980;' scale='0.4 0.4 0.4' position='18.2 0.6 4' /><box style='color:#45ADA8;' scale='0.4 0.4 0.4' position='18.2 1.0 4' /><box style='color:#9DE0AD;' scale='0.4 0.4 0.4' position='18.2 1.4 4' /><box style='color:#E5FCC2;' scale='0.4 0.4 0.4' position='18.2 1.8 4' />    <billboard position="-11 1.21 -3" rotation="0 0 0" scale="2 2 0.07">
       <![CDATA[
         <center style='margin-top: 8px; font-size: 5em;'>
 			<div style='color: #000000; background: url(http://localhost:9000/img/palette/bars-10.png); background-size: 1365px; background-repeat: no-repeat; align: center; opacity: 0.4; display: block; margin-left: auto; margin-right: auto;'>
@@ -2542,7 +2543,7 @@
       ]]>
     </billboard>
 	
-<box style='color:#00A0B0;' scale='0.4 0.4 0.4' position='11.2 0.2 -24' /><box style='color:#6A4A3C;' scale='0.4 0.4 0.4' position='11.2 0.6 -24' /><box style='color:#CC333F;' scale='0.4 0.4 0.4' position='11.2 1.0 -24' /><box style='color:#EB6841;' scale='0.4 0.4 0.4' position='11.2 1.4 -24' /><box style='color:#EDC951;' scale='0.4 0.4 0.4' position='11.2 1.8 -24' />    <billboard position="17 1.21 -24" rotation="0 0 0" scale="2 2 0.07">
+<box style='color:#00A0B0;' scale='0.4 0.4 0.4' position='-9.8 0.2 -3' /><box style='color:#6A4A3C;' scale='0.4 0.4 0.4' position='-9.8 0.6 -3' /><box style='color:#CC333F;' scale='0.4 0.4 0.4' position='-9.8 1.0 -3' /><box style='color:#EB6841;' scale='0.4 0.4 0.4' position='-9.8 1.4 -3' /><box style='color:#EDC951;' scale='0.4 0.4 0.4' position='-9.8 1.8 -3' />    <billboard position="-4 1.21 -3" rotation="0 0 0" scale="2 2 0.07">
       <![CDATA[
         <center style='margin-top: 8px; font-size: 5em;'>
 			<div style='color: #000000; background: url(http://localhost:9000/img/palette/bars-11.png); background-size: 1365px; background-repeat: no-repeat; align: center; opacity: 0.4; display: block; margin-left: auto; margin-right: auto;'>
@@ -2773,7 +2774,7 @@
       ]]>
     </billboard>
 	
-<box style='color:#E94E77;' scale='0.4 0.4 0.4' position='18.2 0.2 -24' /><box style='color:#D68189;' scale='0.4 0.4 0.4' position='18.2 0.6 -24' /><box style='color:#C6A49A;' scale='0.4 0.4 0.4' position='18.2 1.0 -24' /><box style='color:#C6E5D9;' scale='0.4 0.4 0.4' position='18.2 1.4 -24' /><box style='color:#F4EAD5;' scale='0.4 0.4 0.4' position='18.2 1.8 -24' />    <billboard position="24 1.21 -24" rotation="0 0 0" scale="2 2 0.07">
+<box style='color:#E94E77;' scale='0.4 0.4 0.4' position='-2.8 0.2 -3' /><box style='color:#D68189;' scale='0.4 0.4 0.4' position='-2.8 0.6 -3' /><box style='color:#C6A49A;' scale='0.4 0.4 0.4' position='-2.8 1.0 -3' /><box style='color:#C6E5D9;' scale='0.4 0.4 0.4' position='-2.8 1.4 -3' /><box style='color:#F4EAD5;' scale='0.4 0.4 0.4' position='-2.8 1.8 -3' />    <billboard position="3 1.21 -3" rotation="0 0 0" scale="2 2 0.07">
       <![CDATA[
         <center style='margin-top: 8px; font-size: 5em;'>
 			<div style='color: #000000; background: url(http://localhost:9000/img/palette/bars-12.png); background-size: 1365px; background-repeat: no-repeat; align: center; opacity: 0.4; display: block; margin-left: auto; margin-right: auto;'>
@@ -3004,7 +3005,7 @@
       ]]>
     </billboard>
 	
-<box style='color:#D9CEB2;' scale='0.4 0.4 0.4' position='25.2 0.2 -24' /><box style='color:#948C75;' scale='0.4 0.4 0.4' position='25.2 0.6 -24' /><box style='color:#D5DED9;' scale='0.4 0.4 0.4' position='25.2 1.0 -24' /><box style='color:#7A6A53;' scale='0.4 0.4 0.4' position='25.2 1.4 -24' /><box style='color:#99B2B7;' scale='0.4 0.4 0.4' position='25.2 1.8 -24' />    <billboard position="31 1.21 -24" rotation="0 0 0" scale="2 2 0.07">
+<box style='color:#D9CEB2;' scale='0.4 0.4 0.4' position='4.2 0.2 -3' /><box style='color:#948C75;' scale='0.4 0.4 0.4' position='4.2 0.6 -3' /><box style='color:#D5DED9;' scale='0.4 0.4 0.4' position='4.2 1.0 -3' /><box style='color:#7A6A53;' scale='0.4 0.4 0.4' position='4.2 1.4 -3' /><box style='color:#99B2B7;' scale='0.4 0.4 0.4' position='4.2 1.8 -3' />    <billboard position="10 1.21 -3" rotation="0 0 0" scale="2 2 0.07">
       <![CDATA[
         <center style='margin-top: 8px; font-size: 5em;'>
 			<div style='color: #000000; background: url(http://localhost:9000/img/palette/bars-13.png); background-size: 1365px; background-repeat: no-repeat; align: center; opacity: 0.4; display: block; margin-left: auto; margin-right: auto;'>
@@ -3235,7 +3236,7 @@
       ]]>
     </billboard>
 	
-<box style='color:#3FB8AF;' scale='0.4 0.4 0.4' position='32.2 0.2 -24' /><box style='color:#7FC7AF;' scale='0.4 0.4 0.4' position='32.2 0.6 -24' /><box style='color:#DAD8A7;' scale='0.4 0.4 0.4' position='32.2 1.0 -24' /><box style='color:#FF9E9D;' scale='0.4 0.4 0.4' position='32.2 1.4 -24' /><box style='color:#FF3D7F;' scale='0.4 0.4 0.4' position='32.2 1.8 -24' />    <billboard position="38 1.21 -24" rotation="0 0 0" scale="2 2 0.07">
+<box style='color:#3FB8AF;' scale='0.4 0.4 0.4' position='11.2 0.2 -3' /><box style='color:#7FC7AF;' scale='0.4 0.4 0.4' position='11.2 0.6 -3' /><box style='color:#DAD8A7;' scale='0.4 0.4 0.4' position='11.2 1.0 -3' /><box style='color:#FF9E9D;' scale='0.4 0.4 0.4' position='11.2 1.4 -3' /><box style='color:#FF3D7F;' scale='0.4 0.4 0.4' position='11.2 1.8 -3' />    <billboard position="17 1.21 -3" rotation="0 0 0" scale="2 2 0.07">
       <![CDATA[
         <center style='margin-top: 8px; font-size: 5em;'>
 			<div style='color: #000000; background: url(http://localhost:9000/img/palette/bars-14.png); background-size: 1365px; background-repeat: no-repeat; align: center; opacity: 0.4; display: block; margin-left: auto; margin-right: auto;'>
@@ -3466,7 +3467,7 @@
       ]]>
     </billboard>
 	
-<box style='color:#FFFFFF;' scale='0.4 0.4 0.4' position='39.2 0.2 -24' /><box style='color:#CBE86B;' scale='0.4 0.4 0.4' position='39.2 0.6 -24' /><box style='color:#F2E9E1;' scale='0.4 0.4 0.4' position='39.2 1.0 -24' /><box style='color:#1C140D;' scale='0.4 0.4 0.4' position='39.2 1.4 -24' /><box style='color:#CBE86B;' scale='0.4 0.4 0.4' position='39.2 1.8 -24' />    <billboard position="10 1.21 -31" rotation="0 0 0" scale="2 2 0.07">
+<box style='color:#FFFFFF;' scale='0.4 0.4 0.4' position='18.2 0.2 -3' /><box style='color:#CBE86B;' scale='0.4 0.4 0.4' position='18.2 0.6 -3' /><box style='color:#F2E9E1;' scale='0.4 0.4 0.4' position='18.2 1.0 -3' /><box style='color:#1C140D;' scale='0.4 0.4 0.4' position='18.2 1.4 -3' /><box style='color:#CBE86B;' scale='0.4 0.4 0.4' position='18.2 1.8 -3' />    <billboard position="-11 1.21 -10" rotation="0 0 0" scale="2 2 0.07">
       <![CDATA[
         <center style='margin-top: 8px; font-size: 5em;'>
 			<div style='color: #000000; background: url(http://localhost:9000/img/palette/bars-15.png); background-size: 1365px; background-repeat: no-repeat; align: center; opacity: 0.4; display: block; margin-left: auto; margin-right: auto;'>
@@ -3697,7 +3698,7 @@
       ]]>
     </billboard>
 	
-<box style='color:#EFFFCD;' scale='0.4 0.4 0.4' position='11.2 0.2 -31' /><box style='color:#DCE9BE;' scale='0.4 0.4 0.4' position='11.2 0.6 -31' /><box style='color:#555152;' scale='0.4 0.4 0.4' position='11.2 1.0 -31' /><box style='color:#2E2633;' scale='0.4 0.4 0.4' position='11.2 1.4 -31' /><box style='color:#99173C;' scale='0.4 0.4 0.4' position='11.2 1.8 -31' />    <billboard position="17 1.21 -31" rotation="0 0 0" scale="2 2 0.07">
+<box style='color:#EFFFCD;' scale='0.4 0.4 0.4' position='-9.8 0.2 -10' /><box style='color:#DCE9BE;' scale='0.4 0.4 0.4' position='-9.8 0.6 -10' /><box style='color:#555152;' scale='0.4 0.4 0.4' position='-9.8 1.0 -10' /><box style='color:#2E2633;' scale='0.4 0.4 0.4' position='-9.8 1.4 -10' /><box style='color:#99173C;' scale='0.4 0.4 0.4' position='-9.8 1.8 -10' />    <billboard position="-4 1.21 -10" rotation="0 0 0" scale="2 2 0.07">
       <![CDATA[
         <center style='margin-top: 8px; font-size: 5em;'>
 			<div style='color: #000000; background: url(http://localhost:9000/img/palette/bars-16.png); background-size: 1365px; background-repeat: no-repeat; align: center; opacity: 0.4; display: block; margin-left: auto; margin-right: auto;'>
@@ -3928,7 +3929,7 @@
       ]]>
     </billboard>
 	
-<box style='color:#343838;' scale='0.4 0.4 0.4' position='18.2 0.2 -31' /><box style='color:#005F6B;' scale='0.4 0.4 0.4' position='18.2 0.6 -31' /><box style='color:#008C9E;' scale='0.4 0.4 0.4' position='18.2 1.0 -31' /><box style='color:#00B4CC;' scale='0.4 0.4 0.4' position='18.2 1.4 -31' /><box style='color:#00DFFC;' scale='0.4 0.4 0.4' position='18.2 1.8 -31' />    <billboard position="24 1.21 -31" rotation="0 0 0" scale="2 2 0.07">
+<box style='color:#343838;' scale='0.4 0.4 0.4' position='-2.8 0.2 -10' /><box style='color:#005F6B;' scale='0.4 0.4 0.4' position='-2.8 0.6 -10' /><box style='color:#008C9E;' scale='0.4 0.4 0.4' position='-2.8 1.0 -10' /><box style='color:#00B4CC;' scale='0.4 0.4 0.4' position='-2.8 1.4 -10' /><box style='color:#00DFFC;' scale='0.4 0.4 0.4' position='-2.8 1.8 -10' />    <billboard position="3 1.21 -10" rotation="0 0 0" scale="2 2 0.07">
       <![CDATA[
         <center style='margin-top: 8px; font-size: 5em;'>
 			<div style='color: #000000; background: url(http://localhost:9000/img/palette/bars-17.png); background-size: 1365px; background-repeat: no-repeat; align: center; opacity: 0.4; display: block; margin-left: auto; margin-right: auto;'>
@@ -4159,7 +4160,7 @@
       ]]>
     </billboard>
 	
-<box style='color:#413E4A;' scale='0.4 0.4 0.4' position='25.2 0.2 -31' /><box style='color:#73626E;' scale='0.4 0.4 0.4' position='25.2 0.6 -31' /><box style='color:#B38184;' scale='0.4 0.4 0.4' position='25.2 1.0 -31' /><box style='color:#F0B49E;' scale='0.4 0.4 0.4' position='25.2 1.4 -31' /><box style='color:#F7E4BE;' scale='0.4 0.4 0.4' position='25.2 1.8 -31' />    <billboard position="31 1.21 -31" rotation="0 0 0" scale="2 2 0.07">
+<box style='color:#413E4A;' scale='0.4 0.4 0.4' position='4.2 0.2 -10' /><box style='color:#73626E;' scale='0.4 0.4 0.4' position='4.2 0.6 -10' /><box style='color:#B38184;' scale='0.4 0.4 0.4' position='4.2 1.0 -10' /><box style='color:#F0B49E;' scale='0.4 0.4 0.4' position='4.2 1.4 -10' /><box style='color:#F7E4BE;' scale='0.4 0.4 0.4' position='4.2 1.8 -10' />    <billboard position="10 1.21 -10" rotation="0 0 0" scale="2 2 0.07">
       <![CDATA[
         <center style='margin-top: 8px; font-size: 5em;'>
 			<div style='color: #000000; background: url(http://localhost:9000/img/palette/bars-18.png); background-size: 1365px; background-repeat: no-repeat; align: center; opacity: 0.4; display: block; margin-left: auto; margin-right: auto;'>
@@ -4390,7 +4391,7 @@
       ]]>
     </billboard>
 	
-<box style='color:#99B898;' scale='0.4 0.4 0.4' position='32.2 0.2 -31' /><box style='color:#FECEA8;' scale='0.4 0.4 0.4' position='32.2 0.6 -31' /><box style='color:#FF847C;' scale='0.4 0.4 0.4' position='32.2 1.0 -31' /><box style='color:#E84A5F;' scale='0.4 0.4 0.4' position='32.2 1.4 -31' /><box style='color:#2A363B;' scale='0.4 0.4 0.4' position='32.2 1.8 -31' />    <billboard position="38 1.21 -31" rotation="0 0 0" scale="2 2 0.07">
+<box style='color:#99B898;' scale='0.4 0.4 0.4' position='11.2 0.2 -10' /><box style='color:#FECEA8;' scale='0.4 0.4 0.4' position='11.2 0.6 -10' /><box style='color:#FF847C;' scale='0.4 0.4 0.4' position='11.2 1.0 -10' /><box style='color:#E84A5F;' scale='0.4 0.4 0.4' position='11.2 1.4 -10' /><box style='color:#2A363B;' scale='0.4 0.4 0.4' position='11.2 1.8 -10' />    <billboard position="17 1.21 -10" rotation="0 0 0" scale="2 2 0.07">
       <![CDATA[
         <center style='margin-top: 8px; font-size: 5em;'>
 			<div style='color: #000000; background: url(http://localhost:9000/img/palette/bars-19.png); background-size: 1365px; background-repeat: no-repeat; align: center; opacity: 0.4; display: block; margin-left: auto; margin-right: auto;'>
@@ -4621,4 +4622,4 @@
       ]]>
     </billboard>
 	
-<box style='color:#FF4E50;' scale='0.4 0.4 0.4' position='39.2 0.2 -31' /><box style='color:#FC913A;' scale='0.4 0.4 0.4' position='39.2 0.6 -31' /><box style='color:#F9D423;' scale='0.4 0.4 0.4' position='39.2 1.0 -31' /><box style='color:#EDE574;' scale='0.4 0.4 0.4' position='39.2 1.4 -31' /><box style='color:#E1F5C4;' scale='0.4 0.4 0.4' position='39.2 1.8 -31' /></scene>
+<box style='color:#FF4E50;' scale='0.4 0.4 0.4' position='18.2 0.2 -10' /><box style='color:#FC913A;' scale='0.4 0.4 0.4' position='18.2 0.6 -10' /><box style='color:#F9D423;' scale='0.4 0.4 0.4' position='18.2 1.0 -10' /><box style='color:#EDE574;' scale='0.4 0.4 0.4' position='18.2 1.4 -10' /><box style='color:#E1F5C4;' scale='0.4 0.4 0.4' position='18.2 1.8 -10' /></scene>
