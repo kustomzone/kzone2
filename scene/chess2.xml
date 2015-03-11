@@ -62,7 +62,8 @@
 	  7.03.15 Fixed en-passant capture.<br />
 	  5.03.15 Fixed promotion, added message checkmate, stalemate, draw.<br /><br />
 	  <b>Issues</b><br />
-	  - Red restart button disappears.<br />
+	  - Portal doesn't jump anywhere.<br />
+	  - Avatar faces don't rotate.<br />
 	  - Castling doesn't work.<br />
 	  - Promotion: the piece changes to the correct type, but the model doesnt change. scenevr-web bug.
 	  </p>

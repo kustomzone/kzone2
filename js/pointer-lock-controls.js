@@ -241,29 +241,134 @@
         return yawObject.rotation.y;
     }
 
-    this.getDirection = function(targetVec){
-        targetVec.set(0,0,-1);
-        targetVec.applyQuaternion(quat);
-
-        // Fixme - this is a gross hack, and I don't know why it's necessary
-        targetVec.y = pitchObject.rotation.x / (Math.PI / 2)
-
-        return targetVec;
+    this.getPitch = function(){
+        return pitchObject.rotation.x;
     }
+
+    this.setYaw = function(d){
+        yawObject.rotation.y = d;
+    }
+
+    this.getPosition = function(){
+        return yawObject.position;
+    }
+
+    this.getRotation = function(){
+        var e = new THREE.Euler;
+        e.y = this.getYaw();
+        e.x = this.getPitch();
+        return e;
+    }
+    
+    this.getDirection = function(targetVec){
+        var m1 = new THREE.Matrix4();
+        var m2 = new THREE.Matrix4();
+
+        if(client.vrrenderer){
+            var orientation = client.vrrenderer.getOrientation(),
+                euler = new THREE.Euler().setFromQuaternion(orientation);
+
+            m1.makeRotationX(euler.x);
+            m2.makeRotationY(euler.y + this.getYaw() + client.vrrenderer.orientationOffset);
+        }else{
+            m1.makeRotationX(pitchObject.rotation.x);
+            m2.makeRotationY(yawObject.rotation.y);
+        }
+
+        m2.multiply(m1);
+        targetVec.set(0,0,-1);
+        targetVec.applyMatrix4(m2);
+
+        return targetVec.normalize();
+    }
+
+    var pollGamePad = function (gp) {
+    	var gamepads = navigator.getGamepads ? navigator.getGamepads() : (navigator.webkitGetGamepads ? navigator.webkitGetGamepads : []);
+    	var gp = gamepads[0];
+
+    	if (gp) {
+    	    // look
+    	    // xbox 360 controller right analog
+    	    // gp.axes[2]
+    	    // gp.axes[3]
+
+    	    if (Math.abs(gp.axes[2]) > 0.2) {
+    		  yawObject.rotation.y -= gp.axes[2] * 0.02;
+    	    }
+    	    if (Math.abs(gp.axes[3]) > 0.2) {
+        		pitchObject.rotation.x -= gp.axes[3] * 0.02;
+        		pitchObject.rotation.x = Math.max( - PI_2, Math.min( PI_2, pitchObject.rotation.x ) );
+    	    }
+
+    	    // movement
+    	    // xbox 360 controller left analog
+    	    // gp.axes[0]
+    	    // gp.axes[1]
+
+    	    if (gp.axes[0] < -0.3) {
+    		  moveLeft = true;
+    	    } else {
+    		  moveLeft = false;
+    	    }
+    	    if (gp.axes[0] > 0.3) {
+    		  moveRight = true;
+    	    } else {
+    		  moveRight = false;
+    	    }
+    	    if (gp.axes[1] < -0.3) {
+    		  moveForward = true;
+    	    } else {
+    		  moveForward = false;
+    	    }
+    	    if (gp.axes[1] > 0.3) {
+    		  moveBackward = true;
+    	    } else {
+    		  moveBackward = false;
+    	    }
+
+    	    // click
+    	    // Xbox 360 'A' button
+    	    // gp.buttons[0]
+
+    	    if (gp.buttons[0].pressed) {
+    		  yawObject.click = true;
+    	    } else {
+    		  yawObject.click = false;
+    	    }
+
+    	    // jumping
+    	    // Xbox 360 'B' button
+    	    // gp.buttons[1]
+
+    	    if (gp.buttons[1].pressed) {
+                    if ( canJump === true ){
+                        velocity.y = jumpVelocity;
+                    }
+                    canJump = false;
+    	    }
+
+    	    // reorient
+    	    // Xbox 360 'Y' button
+    	    // gp.buttons[3]
+
+    	    if (gp.buttons[3].pressed && this.vrrenderer) {
+    		  yawObject.reorient = true;
+    	    } else {
+    		  yawObject.reorient = false;
+    	    }
+    	}
+
+    };
 
     // Moves the camera to the Cannon.js object position and adds velocity to the object if the run key is down
     var inputVelocity = new THREE.Vector3();
     var euler = new THREE.Euler();
     this.update = function ( delta ) {
 
-        if(!cannonBody){
-            console.log("wtf?");
-            return;
-        }
+	   pollGamePad();
 
         yawObject.rotation.y -= movementX * 0.002;
         pitchObject.rotation.x -= movementY * 0.002;
-
         pitchObject.rotation.x = Math.max( - PI_2, Math.min( PI_2, pitchObject.rotation.x ) );
 
         delta *= 0.5;

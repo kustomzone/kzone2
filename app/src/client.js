@@ -1,21 +1,24 @@
 // Client(s)
 
 (function() {
-  var Client, Connector, DOWN_SAMPLE, EventEmitter, MOBILE, PHYSICS_HZ, TWEEN, Templates, URI,
+  var Client, Connector, Authentication, EventEmitter, Templates, 
+  URI, DEBUG, DOWN_SAMPLE, PHYSICS_HZ, MOBILE, TWEEN,
     __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
     __hasProp = {}.hasOwnProperty,
     __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
   
-  Connector = require("./connector");
+  DEBUG 			= false;
+  LOW_POWER_MODE 	= false;
+  DOWN_SAMPLE 		= 1;
+  PHYSICS_HZ 		= 60;
+  MOBILE 			= false;
   
-  URI 			= require("uri-js");
-  window.CANNON = require("cannon");
-  TWEEN 		= require("tween");
-  EventEmitter 	= require('wolfy87-eventemitter');
-  
-  DOWN_SAMPLE 	= 1;
-  PHYSICS_HZ 	= 60;
-  MOBILE 		= false;
+  Connector 		= require("./connector");
+  URI 				= require("uri-js");
+  window.CANNON 	= require("cannon"); // Not sure why this has to be global
+  TWEEN 			= require("tween");
+  EventEmitter 		= require('wolfy87-eventemitter');
+  Authentication 	= require("./authentication");
   
   Templates = {
     inQueue: 			require("./jade/in_queue.jade"),
@@ -24,9 +27,7 @@
     connecting: 		require("./jade/connecting.jade")
   };
   
-  if (/Android|iPhone|iPad|iPod|IEMobile/i.test(navigator.userAgent)) {
-    MOBILE = true;
-  }
+  if (/Android|iPhone|iPad|iPod|IEMobile/i.test(navigator.userAgent)) { MOBILE = true; }
   
   Client = (function(_super) {
     __extends(Client, _super);
@@ -67,14 +68,15 @@
       this.world = new CANNON.World();
       this.world.gravity.set(0, -7, 0);
       this.world.broadphase = new CANNON.NaiveBroadphase();
-      this.renderer = new THREE.WebGLRenderer({
-        antialias: false
-      });
+      this.renderer = new THREE.WebGLRenderer({ antialias: false });
       this.renderer.setSize(this.width / DOWN_SAMPLE, this.height / DOWN_SAMPLE);
       this.renderer.setClearColor(0x000000);
       this.renderer.autoClear = false;
       this.initVR();
       this.time = Date.now();
+	  
+	  this.authentication = new Authentication(this);
+	  
       if (!MOBILE) {
         this.addMessageInput();
         this.addPointLockGrab();
@@ -82,6 +84,9 @@
       this.camera = new THREE.PerspectiveCamera(VIEW_ANGLE, ASPECT, NEAR, FAR);
       this.addControls();
       this.addPlayerBody();
+	  
+	  if(DEBUG) { this.addDirectionArrow(); }
+	  
       this.addDot();
       this.connector = new Connector(this, this.scene, this.world, this.getUriFromLocation());
       this.connector.connect();
@@ -211,8 +216,7 @@
     };
 	
     Client.prototype.getAllClickableObjects = function() {
-      var list;
-      list = [];
+      var list = [];
       this.scene.traverse(function(obj) {
         return list.push(obj);
       });
@@ -249,22 +253,20 @@
     };
 	
     Client.prototype.checkForPortalCollision = function() {
-      var direction, ints, position;
-      position = this.controls.getObject().position;
-      direction = this.controls.getDirection(new THREE.Vector3);
+      var position = this.controls.getObject().position;
+      var direction = this.controls.getDirection(new THREE.Vector3);
       this.raycaster.set(position, direction);
       this.raycaster.far = 0.5;
-      ints = this.raycaster.intersectObject(this.connector.stencilScene.children[0], false);
+      var ints = this.raycaster.intersectObject(this.connector.stencilScene.children[0], false);
       if ((ints.length > 0) && (this.connector.portal.connector.hasSpawned())) {
         return this.promotePortal();
       }
     };
 	
     Client.prototype.promotePortal = function() {
-      var controlObject;
       this.portal = this.connector.portal;
       window.history.pushState({}, "SceneVR", "?connect=" + this.portal.connector.uri.replace(/^\/\//, ''));
-      controlObject = this.controls.getObject();
+      var controlObject = this.controls.getObject();
       this.scene.remove(controlObject);
       this.world.remove(this.playerBody);
       this.world = this.portal.world;
@@ -289,6 +291,19 @@
       this.raycaster.set(position, direction);
       this.raycaster.far = 5.0;
       _ref = this.raycaster.intersectObjects(this.getAllClickableObjects());
+	  
+	  if(DEBUG){
+        var material = new THREE.LineBasicMaterial({
+            color: 0x0000ff,
+            linewidth: 5
+        });
+        var geometry = new THREE.Geometry();
+        geometry.vertices.push(position.clone());
+        geometry.vertices.push(position.clone().add(direction.multiplyScalar(5.0)));
+        var line = new THREE.Line(geometry, material);
+        this.scene.add(line);
+      }
+	  
       for (_i = 0, _len = _ref.length; _i < _len; _i++) {
         intersection = _ref[_i];
         if (intersection.object && intersection.object.parent && intersection.object.parent.userData.is && intersection.object.parent.userData.is("link")) {
@@ -309,9 +324,8 @@
     };
 	
     Client.prototype.addMessageInput = function() {
-      var input;
       this.chatForm = $("<div id='message-input'> <input type='text' placeholder='Press enter to start chatting...' /> </div>").appendTo("body");
-      input = this.chatForm.find('input');
+      var input = this.chatForm.find('input');
       $('body').on('keydown', (function(_this) {
         return function(e) {
           if (e.keyCode === 13 && !input.is(":focus")) {
@@ -360,7 +374,7 @@
 	
     Client.prototype.addConnectionError = function() {
       $(".overlay").remove();
-      return this.renderOverlay(Templates.unableToConnect({
+      this.renderOverlay(Templates.unableToConnect({
         host: URI.parse(this.connector.uri).host
       }));
     };
@@ -368,12 +382,12 @@
     Client.prototype.renderOverlay = function(html) {
       $(".overlay").remove();
       this.overlay = $("<div class='overlay'>").html(html).appendTo(this.container);
-      return this.centerOverlay();
+      this.centerOverlay();
     };
 	
     Client.prototype.centerOverlay = function() {
       if (this.overlay) {
-        return this.overlay.css({
+        this.overlay.css({
           left: ($(window).width() - this.overlay.width()) / 2 - 20,
           top: ($(window).height() - this.overlay.height()) / 2
         });
@@ -381,16 +395,15 @@
     };
 	
     Client.prototype.addConnecting = function() {
-      return this.renderOverlay(Templates.connecting({
+      this.renderOverlay(Templates.connecting({
         host: URI.parse(this.connector.uri).host
       }));
     };
 	
     Client.prototype.addInstructions = function() {
-      var element;
       $(".overlay").remove();
       this.renderOverlay(Templates.instructions);
-      element = document.body;
+      var element = document.body;
       if (!(MOBILE || element.requestPointerLock || element.mozRequestPointerLock || element.webkitRequestPointerLock)) {
         alert("[FAIL] Your browser doesn't seem to support pointerlock. Please use ie, chrome or firefox.");
       }
@@ -429,9 +442,8 @@
     };
 	
     Client.prototype.addLoadingScene = function() {
-      var geometry, material;
-      geometry = new THREE.IcosahedronGeometry(500, 3);
-      material = new THREE.MeshBasicMaterial({
+      var geometry = new THREE.IcosahedronGeometry(500, 3);
+      var material = new THREE.MeshBasicMaterial({
         color: '#999999',
         wireframe: true,
         wireframeLinewidth: 1
@@ -440,18 +452,27 @@
       return this.scene.add(this.loadingDome);
     };
 	
-    Client.prototype.addPlayerBody = function() {
-      var lastContact, sphereShape;
-      this.playerBody = new CANNON.Body({
-        mass: 100
+	Client.prototype.addDirectionArrow = function(){
+	  var geometry = new THREE.Geometry();
+      var material = new THREE.LineBasicMaterial({
+          color: 0x0ffff00,
+          linewidth: 10
       });
-      sphereShape = new CANNON.Sphere(0.5);
+      geometry.vertices.push(new THREE.Vector3(0,0.2,0));
+      geometry.vertices.push(new THREE.Vector3(0,0.2,-5));
+      this.directionArrow = new THREE.Line(geometry, material);
+      this.scene.add(this.directionArrow);
+    };
+	
+    Client.prototype.addPlayerBody = function() {
+      this.playerBody = new CANNON.Body({ mass: 100 });
+      var sphereShape = new CANNON.Sphere(0.5);
       this.playerBody.addShape(sphereShape);
       this.playerBody.position.set(0, 0, 0);
       this.playerBody.linearDamping = 0;
       this.world.add(this.playerBody);
       this.controls.setCannonBody(this.playerBody);
-      lastContact = {
+      var lastContact = {
         time: 0,
         uuid: null
       };
@@ -496,15 +517,17 @@
       return this.controls.getObject();
     };
 	
+	Client.prototype.getRotation = function() {
+      return this.controls.getRotation();
+    };
+	
     Client.prototype.getPlayerDropPoint = function() {
-      var v;
-      v = new THREE.Vector3(0, 0, -20);
+      var v = new THREE.Vector3(0, 0, -20);
       return this.getAvatarObject().position.clone().add(v.applyEuler(this.getAvatarObject().rotation));
     };
 
     Client.prototype.tickPhysics = function() {
-      var timeStep;
-      timeStep = 1.0 / PHYSICS_HZ;
+      var timeStep = 1.0 / PHYSICS_HZ;
       if (this.controls.enabled) {
         this.connector.physicsWorld.step(timeStep);
       }
@@ -516,6 +539,14 @@
     Client.prototype.tick = function() {
       var state;
       this.stats.begin();
+	  
+	  if (DEBUG) {
+        var q = new THREE.Quaternion;
+        q.setFromAxisAngle(new THREE.Vector3(0, 1, 0), this.controls.getYaw());
+        this.directionArrow.quaternion.copy(q);
+        this.directionArrow.position.copy(this.controls.getPosition()).setY(0.1);
+      }
+	  
       if (this.vrrenderer) {
         state = this.vrHMDSensor.getState();
         this.camera.quaternion.set(state.orientation.x, state.orientation.y, state.orientation.z, state.orientation.w);
@@ -527,7 +558,13 @@
         this.checkForPortalCollision();
       }
       this.stats.end();
-      return requestAnimationFrame(this.tick);
+	  
+	  if (LOW_POWER_MODE) {
+		setTimeout(this.tick, 1000 / 12);
+	  } else {
+		requestAnimationFrame(this.tick);
+	  }
+	  
     };
 
     Client.prototype.renderPortals = function() {
